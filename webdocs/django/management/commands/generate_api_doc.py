@@ -8,14 +8,17 @@ class Command(BaseCommand):
     help = 'generate openapi doc from doc string'
 
     def add_arguments(self, parser):
-        parser.add_argument('output', help='')
+        parser.add_argument('--output',
+                            default='../docs/api.yaml',
+                            help='where to save api doc')
 
     def handle(self, *args, **options):
         openapi_doc = DjangoOPENAPI()
         openapi_doc.from_settings()
         output = options['output']
-        with open(output, 'w') as f:
-            f.write(yaml_dumps(openapi_doc.as_dict()))
+        with open(output, 'wb') as f:
+            dct = openapi_doc.as_dict()
+            f.write(yaml_dumps(dct, encoding='utf-8', allow_unicode=True))
         try:
             openapi_doc.validate()
         except InvalidDoc:
