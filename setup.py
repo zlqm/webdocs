@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setuptools.setup(
     name='webdocs',
-    version='1.0.0',
+    version='1.0.2',
     author='Abraham',
     author_email='abraham.liu@hotmail.com',
     description='small tool to generate openapi doc',
